@@ -1,0 +1,25 @@
+name: Lint and Test
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Installing node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Install npm dependencies
+        run: yarn
+        timeout-minutes: 3
+      - name: Lint
+        run: yarn lint
+      - name: Test
+        run: yarn test

@@ -1,0 +1,16 @@
+# Compiled files
+/dist
+/node_modules
+
+# IDE's files
+.vscode
+
+# Report files
+/report
+
+# Log files
+*.log
+npm-debug.log*
+
+# Template files
+.DS_Store

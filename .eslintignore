@@ -1,0 +1,21 @@
+/src/easing-functions.d.ts
+
+# Compiled output files
+/dist/*
+/node_modules
+
+# IDE's files
+.vscode
+
+# Report files
+/report
+
+# Log files
+*.log
+npm-debug.log*
+
+# Generate files
+lambda.zip
+
+# Template files
+.DS_Store
