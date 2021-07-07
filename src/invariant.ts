@@ -3,7 +3,7 @@ export function invariant(
   format: string,
   ...args: Array<any>
 ): void {
-  if (format === undefined) {
+  if (typeof format !== 'string') {
     throw new Error('invariant requires an error message argument');
   }
 

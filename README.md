@@ -14,12 +14,12 @@ source code, that construct a given value from input range to output range, with
 You can install this package using NPM:
 
 ```sh
-npm i range-interpolation --save
+npm i range-interpolator --save
 ```
 or
 
 ```sh
-yarn add range-interpolation
+yarn add range-interpolator
 ```
 
 ## How use
@@ -27,17 +27,33 @@ yarn add range-interpolation
 Simple example JavaScript / TypeScript:
 
 ```JavaScript
-import { createInterpolation } from "range-interpolator";
+import { createInterpolator } from "range-interpolator";
 
-const interpolation = createInterpolation({
+const interpolator = createInterpolator({
     inputRange: [0, 1],
-    outputRange: [0, 1],
+    outputRange: [100, 200],
 });
 
-interpolation(0) // -> 0
-interpolation(0.5) // -> 0.5
-interpolation(0.8) // -> 0.8
-interpolation(1) // -> 1
+interpolator(0) // -> 100
+interpolator(0.5) // -> 150
+interpolator(0.8) // -> 180
+interpolator(1) // -> 200
+```
+
+```JavaScript
+import { createInterpolator } from "range-interpolator";
+
+const interpolator = createInterpolator({
+    inputRange: [0, 10, 10],
+    outputRange: [1, 2, 3],
+    extrapolate: 'extend',
+});
+
+interpolator(0) // -> 1
+interpolator(5) // -> 1.5
+interpolator(10) // -> 2
+interpolator(10.1) // -> 3
+interpolator(15) // -> 3
 ```
 
 Checkout [more use cases](src/range-interpolator.spec.ts)

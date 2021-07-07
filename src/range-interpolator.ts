@@ -7,11 +7,9 @@ import {
 
 const linear = (t: any) => t;
 
-export function createInterpolation(
+export function createInterpolator(
   config: InterpolationConfigType,
 ): Interpolator {
-  console.log(typeof invariant);
-
   const outputRange = config.outputRange;
   checkInfiniteRange('outputRange', outputRange);
 

@@ -1,9 +1,9 @@
-import { createInterpolation } from './range-interpolator';
+import { createInterpolator } from './range-interpolator';
 import Easing from 'easing-functions';
 
 describe('Interpolation', () => {
   it('should work with defaults', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [0, 1],
       outputRange: [0, 1],
     });
@@ -15,7 +15,7 @@ describe('Interpolation', () => {
   });
 
   it('should work with output range', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [0, 1],
       outputRange: [100, 200],
     });
@@ -27,7 +27,7 @@ describe('Interpolation', () => {
   });
 
   it('should work with input range', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [100, 200],
       outputRange: [0, 1],
     });
@@ -40,14 +40,14 @@ describe('Interpolation', () => {
 
   it('should throw for non monotonic input ranges', () => {
     expect(() =>
-      createInterpolation({
+      createInterpolator({
         inputRange: [0, 2, 1],
         outputRange: [0, 1, 2],
       }),
     ).toThrow();
 
     expect(() =>
-      createInterpolation({
+      createInterpolator({
         inputRange: [0, 1, 2],
         outputRange: [0, 3, 1],
       }),
@@ -55,7 +55,7 @@ describe('Interpolation', () => {
   });
 
   it('should work with empty input range', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [0, 10, 10],
       outputRange: [1, 2, 3],
       extrapolate: 'extend',
@@ -69,7 +69,7 @@ describe('Interpolation', () => {
   });
 
   it('should work with empty output range', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [1, 2, 3],
       outputRange: [0, 10, 10],
       extrapolate: 'extend',
@@ -84,7 +84,7 @@ describe('Interpolation', () => {
   });
 
   it('should work with easing', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [0, 1],
       outputRange: [0, 1],
       easing: Easing.Quadratic.In,
@@ -97,7 +97,7 @@ describe('Interpolation', () => {
   });
 
   it('should work with extrapolate', () => {
-    let interpolation = createInterpolation({
+    let interpolation = createInterpolator({
       inputRange: [0, 1],
       outputRange: [0, 1],
       extrapolate: 'extend',
@@ -107,17 +107,17 @@ describe('Interpolation', () => {
     expect(interpolation(-2)).toBe(4);
     expect(interpolation(2)).toBe(4);
 
-    interpolation = createInterpolation({
+    interpolation = createInterpolator({
       inputRange: [0, 1],
       outputRange: [0, 1],
       extrapolate: 'clamp',
-      easing: Easing.quad,
+      easing: Easing.Quadratic.In,
     });
 
     expect(interpolation(-2)).toBe(0);
     expect(interpolation(2)).toBe(1);
 
-    interpolation = createInterpolation({
+    interpolation = createInterpolator({
       inputRange: [0, 1],
       outputRange: [0, 1],
       extrapolate: 'identity',
@@ -128,26 +128,26 @@ describe('Interpolation', () => {
     expect(interpolation(2)).toBe(2);
   });
 
-  // it('should work with keyframes with extrapolate', () => {
-  //   const interpolation = createInterpolation({
-  //     inputRange: [0, 10, 100, 1000],
-  //     outputRange: [0, 5, 50, 500],
-  //     extrapolate: true,
-  //   });
+  it('should work with keyframes with extrapolate', () => {
+    const interpolation = createInterpolator({
+      inputRange: [0, 10, 100, 1000],
+      outputRange: [0, 5, 50, 500],
+      extrapolate: 'extend',
+    });
 
-  //   expect(interpolation(-5)).toBe(-2.5);
-  //   expect(interpolation(0)).toBe(0);
-  //   expect(interpolation(5)).toBe(2.5);
-  //   expect(interpolation(10)).toBe(5);
-  //   expect(interpolation(50)).toBe(25);
-  //   expect(interpolation(100)).toBe(50);
-  //   expect(interpolation(500)).toBe(250);
-  //   expect(interpolation(1000)).toBe(500);
-  //   expect(interpolation(2000)).toBe(1000);
-  // });
+    expect(interpolation(-5)).toBe(-2.5);
+    expect(interpolation(0)).toBe(0);
+    expect(interpolation(5)).toBe(2.5);
+    expect(interpolation(10)).toBe(5);
+    expect(interpolation(50)).toBe(25);
+    expect(interpolation(100)).toBe(50);
+    expect(interpolation(500)).toBe(250);
+    expect(interpolation(1000)).toBe(500);
+    expect(interpolation(2000)).toBe(1000);
+  });
 
   it('should work with keyframes without extrapolate', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [0, 1, 2],
       outputRange: [0.2, 1, 0.2],
       extrapolate: 'clamp',
@@ -158,14 +158,14 @@ describe('Interpolation', () => {
 
   it('should throw for an infinite input range', () => {
     expect(() =>
-      createInterpolation({
+      createInterpolator({
         inputRange: [-Infinity, Infinity],
         outputRange: [0, 1],
       }),
     ).toThrow();
 
     expect(() =>
-      createInterpolation({
+      createInterpolator({
         inputRange: [-Infinity, 0, Infinity],
         outputRange: [1, 2, 3],
       }),
@@ -173,7 +173,7 @@ describe('Interpolation', () => {
   });
 
   it('should work with negative infinite', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [-Infinity, 0],
       outputRange: [-Infinity, 0],
       easing: Easing.Quadratic.In,
@@ -189,7 +189,7 @@ describe('Interpolation', () => {
   });
 
   it('should work with positive infinite', () => {
-    const interpolation = createInterpolation({
+    const interpolation = createInterpolator({
       inputRange: [5, Infinity],
       outputRange: [5, Infinity],
       easing: Easing.Quadratic.In,
