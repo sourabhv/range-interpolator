@@ -1,4 +1,5 @@
 import { createInterpolator } from './range-interpolator';
+// @ts-expect-error - untyped module
 import Easing from 'easing-functions';
 
 describe('Interpolation', () => {

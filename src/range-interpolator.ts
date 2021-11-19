@@ -1,9 +1,9 @@
 import { invariant } from './invariant';
-import {
+import type {
   ExtrapolateType,
   Interpolator,
   InterpolationConfigType,
-} from './range-interpolator.d';
+} from './range-interpolator-types';
 
 const linear = (t: any) => t;
 
